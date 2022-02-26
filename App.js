@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 5,
+    MarginTop: 0
   },
 });
 
@@ -23,7 +24,7 @@ export default function App() {
   const endTime = useRef(new Date());
   const [elapsedTime, setElapsedTime] = useState();
   const [lastClickEnd, setlastClickEnd] = useState();
-  const [textToTranslate, settextToTranslate] = useState("");
+  const [textToTranslate, settextToTranslate] = useState([]);
   const [translatedMorse, setTransltedMorse] = useState("");
   const m = Object.create(MorseCode);
 
@@ -36,8 +37,10 @@ export default function App() {
     settextToTranslate(textToTranslate => [...textToTranslate, output]);
     // SVGAnimatedString(origin + ".");
     // setTransltedMorse((translatedMorse) => MorseCode.encode(translatedMorse));
-    console.log(m.encode('test message'));
-    console.log(m.decode('.- -... -.-.'));
+    const word = textToTranslate.join('');
+    console.log(word);
+    console.log(m.encode(word));
+    console.log(m.decode(word));
     setlastClickEnd(null);
   };
 
@@ -58,6 +61,7 @@ export default function App() {
         <View style={styles.box} />
       </TouchableHighlight>
       <Text>{textToTranslate}</Text>
+      <Text>{m.decode(textToTranslate.join(''))}</Text>
     </View>
   );
 }
