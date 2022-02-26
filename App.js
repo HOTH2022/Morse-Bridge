@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   box: {
-    backgroundColor: "#cc0000",
+    backgroundColor: "black",
     width: 200,
     height: 200,
     borderRadius: 5,
@@ -35,14 +35,8 @@ export default function App() {
   const start = () => {
     startTime.current = new Date();
     const timeDifference = (startTime.current - lastClickEnd) / 1000;
-    // console.log(timeDifference);
-    const output = timeDifference > 0.3 ? " " : null;
-    // console.log(output);
+    const output = timeDifference > 0.8 ? " " : null;
     settextToTranslate(textToTranslate => [...textToTranslate, output]);
-    // // SVGAnimatedString(origin + ".");
-    // // setTransltedMorse((translatedMorse) => MorseCode.encode(translatedMorse));
-    // console.log(m.encode('test message'));
-    // console.log(m.decode('.- -... -.-.'));
 
     // with optional 'options'
     
