@@ -56,11 +56,8 @@ export default function App() {
   const start = () => {
     startTime.current = new Date();
     const timeDifference = (startTime.current - lastClickEnd) / 1000;
-    // console.log(timeDifference);
-    const output = timeDifference > 0.7 ? " " : null;
-    // console.log(output);
+    const output = timeDifference > 0.8 ? " " : null;
     settextToTranslate((textToTranslate) => [...textToTranslate, output]);
-    // // setTransltedMorse((translatedMorse) => MorseCode.encode(translatedMorse));
 
     // with optional 'options'
 
