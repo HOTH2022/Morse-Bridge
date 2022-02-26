@@ -19,9 +19,6 @@ const styles = StyleSheet.create({
 
 export default function App() {
   const startTime = useRef(new Date());
-<<<<<<< HEAD
- 
-=======
   const endTime = useRef(new Date());
   const [elapsedTime, setElapsedTime] = useState();
   const [lastClickEnd, setlastClickEnd] = useState();
@@ -48,7 +45,6 @@ export default function App() {
     settextToTranslate((textToTranslate) => [...textToTranslate, expr]);
   };
 
->>>>>>> b1df58b7aceb9dcd1b7716334965b7a203f3958f
   return (
     <View style={styles.container}>
       <TouchableHighlight onPressIn={start} onPressOut={end}>
