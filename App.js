@@ -1,20 +1,49 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
+import { useState, useEffect, useRef } from "react";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-});
+  box: {
+    backgroundColor: '#cc0000',
+    width: 200,
+    height: 200,
+    borderRadius: 5,
+  }
+})
+
+
+
+
+export default function App() {
+  const startTime = useRef(new Date());
+ const endTime = useRef(new Date());
+ const [elapsedTime, setElapsedTime] = useState();
+
+ const start = () => {
+   startTime.current = new Date();
+ }
+
+ const end = () => {
+   endTime.current = new Date();
+   const et = ( endTime.current - startTime.current) / 1000 // get the seconds
+   setElapsedTime(et);
+   console.log(et); // You cannot log elapsedTime here, because again, useState is async
+  }
+  return (
+    
+    <View style={styles.container}>
+        <TouchableHighlight onPressIn = {start} onPressOut= {end}>
+          <View style = {styles.box}/>
+        </TouchableHighlight>
+    </View>
+  );
+}
+
+
+
