@@ -1,3 +1,3 @@
 # Morse-Bridge
 
-To run: ```git run ios```
+To run: ```npm run ios```
