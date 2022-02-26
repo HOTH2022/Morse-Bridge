@@ -25,7 +25,7 @@ export default function App() {
   const endTime = useRef(new Date());
   const [elapsedTime, setElapsedTime] = useState();
   const [lastClickEnd, setlastClickEnd] = useState();
-  const [textToTranslate, settextToTranslate] = useState("");
+  const [textToTranslate, settextToTranslate] = useState([]); //[] initialize for the array
   const morse = new Morsey({ wordspace: '|' });
 
   //const [translatedMorse, setTransltedMorse] = useState("");
