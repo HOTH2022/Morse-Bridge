@@ -1,22 +1,46 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableHighlight,
+  TextInput,
+} from "react-native";
 import { useState, useEffect, useRef } from "react";
-import Morsey from 'morsey';
+import Morsey from "morsey";
 
 // import MorseCode from "./assets/morseCode";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center",
   },
   box: {
-    backgroundColor: "#cc0000",
-    width: 200,
-    height: 200,
+    marginTop: "0%",
+    backgroundColor: "#000",
+    width: 400,
+    height: "100%",
     borderRadius: 5,
+    justifyContent: "center",
+  },
+  Placeholder: {
+    alignSelf: "center",
+    textAlign: "center",
+    color: "white",
+    fontSize: 50,
+    fontWeight: "bold",
+  },
+  translated: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    alignSelf: "center",
+    textAlign: "center",
+    color: "white",
+    fontSize: 50,
+    fontWeight: "bold",
   },
 });
 
@@ -26,34 +50,27 @@ export default function App() {
   const [elapsedTime, setElapsedTime] = useState();
   const [lastClickEnd, setlastClickEnd] = useState();
   const [textToTranslate, settextToTranslate] = useState([]); //[] initialize for the array
-  const morse = new Morsey({ wordspace: '|' });
-
-  //const [translatedMorse, setTransltedMorse] = useState("");
-  //const m = Object.create(MorseCode);
-
+  const morse = new Morsey({ wordspace: "|" });
+  const [text, onChangeText] = useState("Useless Text");
 
   const start = () => {
     startTime.current = new Date();
     const timeDifference = (startTime.current - lastClickEnd) / 1000;
     // console.log(timeDifference);
-    const output = timeDifference > 0.3 ? " " : null;
+    const output = timeDifference > 0.7 ? " " : null;
     // console.log(output);
-    settextToTranslate(textToTranslate => [...textToTranslate, output]);
-    // // SVGAnimatedString(origin + ".");
+    settextToTranslate((textToTranslate) => [...textToTranslate, output]);
     // // setTransltedMorse((translatedMorse) => MorseCode.encode(translatedMorse));
-    // console.log(m.encode('test message'));
-    // console.log(m.decode('.- -... -.-.'));
 
     // with optional 'options'
-    
-    console.log(morse.encode('sample text'));
-    // => ··· ·- -- ·--· ·-·· · | - · -··- -
-    
-    console.log(morse.decode('··· ·- -- ·--· ·-·· · | - · -··- -'));
-    // => SAMPLE TEXT
 
+    console.log(morse.encode("sample text"));
+    // => ··· ·- -- ·--· ·-·· · | - · -··- -
+
+    console.log(morse.decode("··· ·- -- ·--· ·-·· · | - · -··- -"));
+    // => SAMPLE TEXT
   };
-  
+
   const end = () => {
     endTime.current = new Date();
     const et = (endTime.current - startTime.current) / 1000; // get the seconds
@@ -67,19 +84,29 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <TouchableHighlight onPressIn={start} onPressOut={end}>
-        <View style={styles.box} />
-      </TouchableHighlight>
-      <Text>{textToTranslate}</Text>
-      <Text>{textToTranslate.join('')}</Text>
-      <Text>{morse.decode(textToTranslate.join(''))}</Text>
+      {/* Screen: Input to Morse */}
+      <TextInput
+        style={styles.translated}
+        onChangeText={onChangeText}
+        value={text}
+      />
+      <Text style={styles.translated}>{morse.encode(text)}</Text>
 
-
+      {/* Screen: Morse to Input */}
+      {/* <TouchableHighlight onPressIn={start} onPressOut={end}>
+        <View style={styles.box}>
+          <Text style={styles.translated}>{textToTranslate}</Text>
+          <Text style={styles.Placeholder}>
+            {textToTranslate.length ? null : "Tap To Send Morse"}
+          </Text>
+          <Text style={styles.translated}>
+            {morse.decode(textToTranslate.join(""))}
+          </Text>
+        </View>
+      </TouchableHighlight> */}
     </View>
   );
 }
-
-
 
 // /*
 //   // Create an Object to encode/decode morse code with
