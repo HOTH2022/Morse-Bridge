@@ -20,28 +20,7 @@ const styles = StyleSheet.create({
 export default function App() {
   const startTime = useRef(new Date());
 <<<<<<< HEAD
- const endTime = useRef(new Date());
- const [elapsedTime, setElapsedTime] = useState();
- const [words, setWords] = useState([0]);
- [last_end, setLastEnd] = useState(null);
  
- const start = () => {
-   startTime.current = new Date();
-   console.log(startTime.current);
-   if (last_end){
-
-   }
- }
-
- const end = () => {
-   endTime.current = new Date();
-   const et = ( endTime.current - startTime.current) / 1000 // get the seconds
-   setElapsedTime(et);
-   setWords(words => [...words, et]);
-   console.log(len(words));
-   console.log(et); // You cannot log elapsedTime here, because again, useState is async
-   console.log(endTime.current);
-  }
 =======
   const endTime = useRef(new Date());
   const [elapsedTime, setElapsedTime] = useState();
