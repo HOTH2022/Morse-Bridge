@@ -6,7 +6,7 @@ import {
   TouchableHighlight,
   TextInput,
   Vibration,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { useState, useEffect, useRef } from "react";
 import Morsey from "morsey";
@@ -60,9 +60,9 @@ export default function App() {
   const [lastClickEnd, setlastClickEnd] = useState();
   const [textToTranslate, settextToTranslate] = useState([]); //[] initialize for the array
   const morse = new Morsey({ wordspace: "|" });
-  const [text, onChangeText] = useState("Useless Text");
+  const [text, onChangeText] = useState("");
   const [showText, setShowText] = useState(true);
-  const [color, setColor] = useState('black');
+  const [color, setColor] = useState("black");
   useEffect((time) => {
     // Change the state every second or the time given by User.
     const interval = setInterval(() => {
@@ -73,7 +73,7 @@ export default function App() {
   const Circle = () => {
     return <View style={styles.circle} />;
   };
-  
+
   StyleSheet.create({
     circle: {
       width: 100,
@@ -84,44 +84,42 @@ export default function App() {
   });
   const handleButton = () => {
     const process_text = morse.encode(text);
-    var morseL = function() {
-      setColor('red');
-      setTimeout(function(){
-        setColor('black');
+    var morseL = function () {
+      setColor("red");
+      setTimeout(function () {
+        setColor("black");
       }, 1200);
-    }
-    var morseS = function() {
-      setColor('red');
-      setTimeout(function(){
-        setColor('black');
+    };
+    var morseS = function () {
+      setColor("red");
+      setTimeout(function () {
+        setColor("black");
       }, 400);
-    }
-    var morseN = function() {
-      
-    }
+    };
+    var morseN = function () {};
     var i = 0;
     var time = 0;
     function myLoop() {
-      setTimeout(function() {
-        if (process_text[i] === '-') {
+      setTimeout(function () {
+        if (process_text[i] === "-") {
           morseL();
           time = 1400;
-        } else if (process_text[i] === '·') {
+        } else if (process_text[i] === "·") {
           morseS();
           time = 800;
-        } else if (process_text[i] === ' ') {
+        } else if (process_text[i] === " ") {
           morseN();
           time = 1200;
-        };
-    
+        }
+
         i++;
-        
+
         if (i < process_text.length) {
           myLoop();
         }
       }, time);
     }
-    
+
     setTimeout(myLoop, 1000);
   };
   const start = () => {
@@ -153,22 +151,28 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* Screen: Input to Morse */}
-      
-        <TextInput
-          style={styles.translated}
-          onChangeText={onChangeText}
-          value={text}
-        />
-       <TouchableOpacity
+
+      <TextInput
+        placeholder="Type text here"
+        placeholderTextColor="#AEAEAE"
+        multiline
+        style={styles.translated}
+        onChangeText={onChangeText}
+        value={text}
+      />
+      <TouchableOpacity
         onPress={handleButton}
-        style={{width: 100,
+        style={{
+          width: 100,
           height: 100,
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
           padding: 10,
           borderRadius: 100,
-          backgroundColor: color,}}>
-        <Text style={{color: 'white'}}>I'm a button</Text>
+          backgroundColor: color,
+        }}
+      >
+        <Text style={{ color: "Red" }}>VIBRATE</Text>
       </TouchableOpacity>
       <Text style={styles.translated}>{morse.encode(text)}</Text>
 
