@@ -16,9 +16,9 @@ import Morsey from "morsey";
 const ONE_SECOND_IN_MS = 1000;
 
 const PATTERN = [
-    1 * ONE_SECOND_IN_MS,
-    3 * ONE_SECOND_IN_MS,
-    7 * ONE_SECOND_IN_MS
+  1 * ONE_SECOND_IN_MS,
+  3 * ONE_SECOND_IN_MS,
+  7 * ONE_SECOND_IN_MS,
 ];
 const styles = StyleSheet.create({
   container: {
