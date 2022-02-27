@@ -6,21 +6,20 @@ import {
   TouchableHighlight,
   TextInput,
   Vibration,
-  Button
+  TouchableOpacity
 } from "react-native";
 import { useState, useEffect, useRef } from "react";
 import Morsey from "morsey";
 
 // import MorseCode from "./assets/morseCode";
 
-const ONE_SECOND_IN_MS = 400;
+const ONE_SECOND_IN_MS = 1000;
 
 const PATTERN = [
     1 * ONE_SECOND_IN_MS,
     3 * ONE_SECOND_IN_MS,
     7 * ONE_SECOND_IN_MS
 ];
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -62,44 +61,68 @@ export default function App() {
   const [textToTranslate, settextToTranslate] = useState([]); //[] initialize for the array
   const morse = new Morsey({ wordspace: "|" });
   const [text, onChangeText] = useState("Useless Text");
-
-
+  const [showText, setShowText] = useState(true);
+  const [color, setColor] = useState('black');
+  useEffect((time) => {
+    // Change the state every second or the time given by User.
+    const interval = setInterval(() => {
+      setShowText((showText) => !showText);
+    }, time);
+    return () => clearInterval(interval);
+  }, []);
+  const Circle = () => {
+    return <View style={styles.circle} />;
+  };
+  
+  StyleSheet.create({
+    circle: {
+      width: 100,
+      height: 100,
+      borderRadius: 100 / 2,
+      backgroundColor: "black",
+    },
+  });
   const handleButton = () => {
     const process_text = morse.encode(text);
-    console.log(process_text);
-    let process_list = [];
-    for (let i = 0; i < process_text.length; i++){
-      if (process_text[i] === '·'){
-        console.log("·");
-        process_list.push(400);
-      }
-      else if (process_text[i] === '-'){
-        console.log("-");
-        process_list.push(1200);
-      }
+    var morseL = function() {
+      setColor('red');
+      setTimeout(function(){
+        setColor('black');
+      }, 1200);
     }
-    Vibration.vibrate(process_list);
-    /*
-    for (let i = 0; i < process_text.length; i++){
-      if (process_text[i] === '·'){
-        console.log("·");
-        Vibration.vibrate(PATTERN[0]);
-        Vibration.cancel();
-      }
-      else if (process_text[i] === '-'){
-        console.log("-");
-        Vibration.vibrate(PATTERN[1]);
-        Vibration.cancel();
-      }
-      else if (process_text[i] === ' '){
-        setTimeout(() => {  console.log("slash"); }, PATTERN[0]);
-      }
-      else if (process_text[i] === '|'){
-        console.log("|");
-        setTimeout(() => {  console.log("word"); }, PATTERN[1]);
-      }
+    var morseS = function() {
+      setColor('red');
+      setTimeout(function(){
+        setColor('black');
+      }, 400);
     }
-    */
+    var morseN = function() {
+      
+    }
+    var i = 0;
+    var time = 0;
+    function myLoop() {
+      setTimeout(function() {
+        if (process_text[i] === '-') {
+          morseL();
+          time = 1400;
+        } else if (process_text[i] === '·') {
+          morseS();
+          time = 800;
+        } else if (process_text[i] === ' ') {
+          morseN();
+          time = 1200;
+        };
+    
+        i++;
+        
+        if (i < process_text.length) {
+          myLoop();
+        }
+      }, time);
+    }
+    
+    setTimeout(myLoop, 1000);
   };
   const start = () => {
     startTime.current = new Date();
@@ -136,12 +159,17 @@ export default function App() {
           onChangeText={onChangeText}
           value={text}
         />
-       <Button
-        onPress= {handleButton}
-        title="Learn More"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
+       <TouchableOpacity
+        onPress={handleButton}
+        style={{width: 100,
+          height: 100,
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 10,
+          borderRadius: 100,
+          backgroundColor: color,}}>
+        <Text style={{color: 'white'}}>I'm a button</Text>
+      </TouchableOpacity>
       <Text style={styles.translated}>{morse.encode(text)}</Text>
 
       {/* Screen: Morse to Input */}
