@@ -5,11 +5,21 @@ import {
   View,
   TouchableHighlight,
   TextInput,
+  Vibration,
+  Button
 } from "react-native";
 import { useState, useEffect, useRef } from "react";
 import Morsey from "morsey";
 
 // import MorseCode from "./assets/morseCode";
+
+const ONE_SECOND_IN_MS = 400;
+
+const PATTERN = [
+    1 * ONE_SECOND_IN_MS,
+    3 * ONE_SECOND_IN_MS,
+    7 * ONE_SECOND_IN_MS
+];
 
 const styles = StyleSheet.create({
   container: {
@@ -53,6 +63,44 @@ export default function App() {
   const morse = new Morsey({ wordspace: "|" });
   const [text, onChangeText] = useState("Useless Text");
 
+
+  const handleButton = () => {
+    const process_text = morse.encode(text);
+    console.log(process_text);
+    let process_list = [];
+    for (let i = 0; i < process_text.length; i++){
+      if (process_text[i] === '·'){
+        console.log("·");
+        process_list.push(400);
+      }
+      else if (process_text[i] === '-'){
+        console.log("-");
+        process_list.push(1200);
+      }
+    }
+    Vibration.vibrate(process_list);
+    /*
+    for (let i = 0; i < process_text.length; i++){
+      if (process_text[i] === '·'){
+        console.log("·");
+        Vibration.vibrate(PATTERN[0]);
+        Vibration.cancel();
+      }
+      else if (process_text[i] === '-'){
+        console.log("-");
+        Vibration.vibrate(PATTERN[1]);
+        Vibration.cancel();
+      }
+      else if (process_text[i] === ' '){
+        setTimeout(() => {  console.log("slash"); }, PATTERN[0]);
+      }
+      else if (process_text[i] === '|'){
+        console.log("|");
+        setTimeout(() => {  console.log("word"); }, PATTERN[1]);
+      }
+    }
+    */
+  };
   const start = () => {
     startTime.current = new Date();
     const timeDifference = (startTime.current - lastClickEnd) / 1000;
@@ -82,10 +130,17 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* Screen: Input to Morse */}
-      <TextInput
-        style={styles.translated}
-        onChangeText={onChangeText}
-        value={text}
+      
+        <TextInput
+          style={styles.translated}
+          onChangeText={onChangeText}
+          value={text}
+        />
+       <Button
+        onPress= {handleButton}
+        title="Learn More"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
       />
       <Text style={styles.translated}>{morse.encode(text)}</Text>
 
