@@ -10,6 +10,9 @@ import {
 } from "react-native";
 import { useState, useEffect, useRef } from "react";
 import Morsey from "morsey";
+import * as React from "react";
+// import { StyleSheet, View, Text, Button } from 'react-native';
+import * as Haptics from "expo-haptics";
 
 // import MorseCode from "./assets/morseCode";
 
@@ -62,7 +65,7 @@ export default function App() {
   const morse = new Morsey({ wordspace: "|" });
   const [text, onChangeText] = useState("");
   const [showText, setShowText] = useState(true);
-  const [color, setColor] = useState("black");
+  const [color, setColor] = useState("white");
   useEffect((time) => {
     // Change the state every second or the time given by User.
     const interval = setInterval(() => {
@@ -73,15 +76,14 @@ export default function App() {
   const Circle = () => {
     return <View style={styles.circle} />;
   };
-
-  StyleSheet.create({
-    circle: {
-      width: 100,
-      height: 100,
-      borderRadius: 100 / 2,
-      backgroundColor: "black",
-    },
-  });
+  // StyleSheet.create({
+  //   circle: {
+  //     width: 100,
+  //     height: 100,
+  //     borderRadius: 100 / 2,
+  //     backgroundColor: "white",
+  //   },
+  // });
   const handleButton = () => {
     const process_text = morse.encode(text);
     var morseL = function () {
@@ -104,9 +106,11 @@ export default function App() {
         if (process_text[i] === "-") {
           morseL();
           time = 1400;
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
         } else if (process_text[i] === "·") {
           morseS();
           time = 800;
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         } else if (process_text[i] === " ") {
           morseN();
           time = 1200;
@@ -114,8 +118,10 @@ export default function App() {
 
         i++;
 
-        if (i < process_text.length) {
+        if (i <= process_text.length) {
           myLoop();
+        } else {
+          setColor("white");
         }
       }, time);
     }
@@ -172,7 +178,7 @@ export default function App() {
           backgroundColor: color,
         }}
       >
-        <Text style={{ color: "Red" }}>VIBRATE</Text>
+        <Text style={{ color: "black" }}>VIBRATE</Text>
       </TouchableOpacity>
       <Text style={styles.translated}>{morse.encode(text)}</Text>
 
