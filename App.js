@@ -6,7 +6,7 @@ import {
   TouchableHighlight,
   TextInput,
   Vibration,
-  Button
+  Button,
 } from "react-native";
 import { useState, useEffect, useRef } from "react";
 import Morsey from "morsey";
@@ -16,9 +16,9 @@ import Morsey from "morsey";
 const ONE_SECOND_IN_MS = 400;
 
 const PATTERN = [
-    1 * ONE_SECOND_IN_MS,
-    3 * ONE_SECOND_IN_MS,
-    7 * ONE_SECOND_IN_MS
+  1 * ONE_SECOND_IN_MS,
+  3 * ONE_SECOND_IN_MS,
+  7 * ONE_SECOND_IN_MS,
 ];
 
 const styles = StyleSheet.create({
@@ -61,19 +61,17 @@ export default function App() {
   const [lastClickEnd, setlastClickEnd] = useState();
   const [textToTranslate, settextToTranslate] = useState([]); //[] initialize for the array
   const morse = new Morsey({ wordspace: "|" });
-  const [text, onChangeText] = useState("Useless Text");
-
+  const [text, onChangeText] = useState("");
 
   const handleButton = () => {
     const process_text = morse.encode(text);
     console.log(process_text);
     let process_list = [];
-    for (let i = 0; i < process_text.length; i++){
-      if (process_text[i] === '·'){
+    for (let i = 0; i < process_text.length; i++) {
+      if (process_text[i] === "·") {
         console.log("·");
         process_list.push(400);
-      }
-      else if (process_text[i] === '-'){
+      } else if (process_text[i] === "-") {
         console.log("-");
         process_list.push(1200);
       }
@@ -130,14 +128,17 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* Screen: Input to Morse */}
-      
-        <TextInput
-          style={styles.translated}
-          onChangeText={onChangeText}
-          value={text}
-        />
-       <Button
-        onPress= {handleButton}
+
+      <TextInput
+        placeholder="Type Text Here"
+        placeholderTextColor="#AEAEAE"
+        multiline
+        style={styles.translated}
+        onChangeText={onChangeText}
+        value={text}
+      />
+      <Button
+        onPress={handleButton}
         title="Learn More"
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
