@@ -10,6 +10,9 @@ import {
 } from "react-native";
 import { useState, useEffect, useRef } from "react";
 import Morsey from "morsey";
+import * as React from 'react';
+// import { StyleSheet, View, Text, Button } from 'react-native';
+import * as Haptics from 'expo-haptics';
 
 // import MorseCode from "./assets/morseCode";
 
@@ -106,9 +109,11 @@ export default function App() {
         if (process_text[i] === '-') {
           morseL();
           time = 1400;
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
         } else if (process_text[i] === '·') {
           morseS();
           time = 800;
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         } else if (process_text[i] === ' ') {
           morseN();
           time = 1200;
