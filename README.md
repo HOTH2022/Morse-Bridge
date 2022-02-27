@@ -6,9 +6,7 @@ To run: ```npm run ios```
 Deafblind people, while having ways of communicating with others in the near distance, like sign language, tactile sign language, or print on palm, have a severe difficulty of communicating within long-distance through electronic media like phone or computer, which heavily restrict their scope of communication, leading to some potentially negative situations where they are alone while needing help or needing communication with people far from them. Based on this, we want to design a mobile application that can help address the long-distance communication of deafblind people.
 
 ## What it does
-Our mobile application supports deafblind people's long-distance communication through two-way translation: from deafblind people to non-deafblind people, we allow the former to use morse code by pressing the screen to generate corresponding text that can be sent to other people in the other user end;
-
-from non-deafblind people to deafblind people, our application can allow them to input text and the content will be transformed into morse code in vibration form to let deafblind people read the message through their phone's vibration.
+Our mobile application supports deafblind people's long-distance communication through two-way translation: from deafblind people to non-deafblind people, we allow the former to use morse code by pressing the screen to generate corresponding text that can be sent to other people in the other user end; from non-deafblind people to deafblind people, our application can allow them to input text and the content will be transformed into morse code in vibration form to let deafblind people read the message through their phone's vibration.
 
 With the support of these two translations, our application allowed us to achieve potentially communication not only between deafblind people and non-deafblind people but also between deafblind people and deafblind people. Meanwhile, we designed to have more supportive functionalities to assist deafblind people to make the communication even more convenient, like reserved sentences that can be auto-generated when using a particular touching pattern.
 
